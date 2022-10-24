@@ -23,7 +23,7 @@ public class Main {
                     input = scanner.nextLine();
                 } else {
                     System.out.println("Ошибка! Введено больше двух чисел!");
-                    break;
+                    System.out.println("Введите 2 числа через пробел для суммирования. Для окончания введите 'exit'.");
                 }
             }
         }
