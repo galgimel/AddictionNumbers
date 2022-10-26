@@ -20,11 +20,11 @@ public class Main {
                     int result = count.count(a , b);
                     String answer = formatter.format(a, b, result);
                     System.out.println(answer);
-                    input = scanner.nextLine();
+                    System.out.println("Введите 2 числа через пробел для суммирования.");
                 } else {
-                    System.out.println("Ошибка! Введено больше двух чисел!");
-                    System.out.println("Введите 2 числа через пробел для суммирования. Для окончания введите 'exit'.");
+                    System.out.println("Ошибка! Введите 2 числа через пробел для суммирования.");
                 }
+                input = scanner.nextLine();
             }
         }
 }

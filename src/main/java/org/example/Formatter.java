@@ -2,11 +2,16 @@ package org.example;
 
 public class Formatter {
     public String format(int a, int b, int result) {
-        MaxLineLength max = new MaxLineLength();
-
-        int maxLineLength = max.maxLineLength(a, b, result);
         int[] ints = new int[]{a, b, result};
         String[] full = new String[3];
+        int maxLineLength = 0;
+
+        for (int i = 0; i < ints.length; i++) {
+            String number = ints[i] + "";
+            if (number.length() > maxLineLength) {
+                maxLineLength = number.length();
+            }
+        }
 
         for (int i = 0; i < ints.length; i++) {
             String number = ints[i] + "";
