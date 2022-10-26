@@ -13,24 +13,27 @@ class FormatterTest {
         int a = -5;
         int b = -5;
         int result = -10;
+        String action = "+";
         String expected = "  -5\n" + "+ -5\n" + " -10\n";
-        String actual = formatter.format(a, b, result);
+        String actual = formatter.format(a, b, result, action);
 
         assertEquals(expected, actual);
 
-        a = 1;
-        b = 5;
-        result = -4;
-        expected = "  1\n" + "+ 5\n" + " -4\n";
-        actual = formatter.format(a, b, result); // не записит от результата
+        a = 5;
+        b = -5;
+        result = 10;
+        action = "-";
+        expected = "  5\n" + "--5\n" + " 10\n";
+        actual = formatter.format(a, b, result, action);
 
         assertEquals(expected, actual);
 
-        a = 8;
-        b = 92;
-        result = 100;
-        expected = "   8\n" + "+ 92\n" + " 100\n";
-        actual = formatter.format(a, b, result);
+        a = 55;
+        b = 55;
+        result = 3025;
+        action = "*";
+        expected = "   55\n" + "*  55\n" + " 3025\n";
+        actual = formatter.format(a, b, result, action);
 
         assertEquals(expected, actual);
     }

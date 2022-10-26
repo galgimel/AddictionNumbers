@@ -1,7 +1,7 @@
 package org.example;
 
 public class Formatter {
-    public String format(int a, int b, int result) {
+    public String format(int a, int b, int result, String action) {
         int[] ints = new int[]{a, b, result};
         String[] full = new String[3];
         int maxLineLength = MaxLineLength(a, b, result);
@@ -21,7 +21,7 @@ public class Formatter {
             }
         }
 
-        return " " + full[0] + "\n" + "+" + full[1] + "\n" + " " + full[2] + "\n";
+        return " " + full[0] + "\n" + action + full[1] + "\n" + " " + full[2] + "\n";
     }
 
     public int MaxLineLength(int a, int b, int result) {
