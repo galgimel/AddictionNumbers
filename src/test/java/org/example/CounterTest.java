@@ -3,7 +3,6 @@ package org.example;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.stream.Stream;
 
@@ -12,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CounterTest {
 
     @ParameterizedTest
-    @MethodSource ("expectedAnswer")
+    @MethodSource("expectedAnswer")
     void count(String action, int a, int b, int expected) {
         Counter counter = new Counter();
 
@@ -20,7 +19,8 @@ class CounterTest {
         assertEquals(expected, actual);
 
     }
-    private static Stream<Arguments> expectedAnswer(){
+
+    private static Stream<Arguments> expectedAnswer() {
         return Stream.of(
                 Arguments.of("+", 1, -1, 0),
                 Arguments.of("*", 1, -1, -1),
