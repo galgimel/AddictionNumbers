@@ -1,60 +1,33 @@
 package org.example;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CounterTest {
 
-    @Test
-    void count() {
+    @ParameterizedTest
+    @MethodSource ("expectedAnswer")
+    void count(String action, int a, int b, int expected) {
         Counter counter = new Counter();
-        String action = "+";
-        int a = -1;
-        int b = 1;
-        int expected = 0;
+
         int actual = counter.count(a, b, action);
-
         assertEquals(expected, actual);
 
-        action = "*";
-        a = -1;
-        b = 1;
-        expected = -1;
-        actual = counter.count(a, b, action);
-
-        assertEquals(expected, actual);
-
-        action = "*";
-        a = 0;
-        b = 1;
-        expected = 0;
-        actual = counter.count(a, b, action);
-
-        assertEquals(expected, actual);
-
-        action = "*";
-        a = 7;
-        b = 0;
-        expected = 0;
-        actual = counter.count(a, b, action);
-
-        assertEquals(expected, actual);
-
-        action = "-";
-        a = -7;
-        b = 3;
-        expected = -10;
-        actual = counter.count(a, b, action);
-
-        assertEquals(expected, actual);
-
-        action = "-";
-        a = -10;
-        b = -50;
-        expected = 40;
-        actual = counter.count(a, b, action);
-
-        assertEquals(expected, actual);
+    }
+    private static Stream<Arguments> expectedAnswer(){
+        return Stream.of(
+                Arguments.of("+", 1, -1, 0),
+                Arguments.of("*", 1, -1, -1),
+                Arguments.of("*", 0, 1, 0),
+                Arguments.of("*", 7, 0, 0),
+                Arguments.of("-", -7, 3, -10),
+                Arguments.of("-", -10, -50, 40)
+        );
     }
 }
