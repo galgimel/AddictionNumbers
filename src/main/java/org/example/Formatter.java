@@ -14,16 +14,14 @@ public class Formatter {
                 int difference = maxLineLength - number.length();
                 for (int j = 0; j < difference; j++) {
                     str.insert(0, " ");
-
-
                 }
                 full[i] = str.toString();
             } else if (number.length() == maxLineLength) {
                 full[i] = str.toString();
             }
         }
-        String space = Space(maxLineLength);
-        return " " + full[0] + "\n" + action + full[1] + "\n" + space + "\n"+ " " + full[2] + "\n";
+        String space = Space(maxLineLength, '-');
+        return " " + full[0] + "\n" + action + full[1] + "\n" + space + "\n" + " " + full[2] + "\n";
     }
 
     public int MaxLineLength(int a, int b, int result) {
@@ -38,10 +36,11 @@ public class Formatter {
         }
         return maxLineLength;
     }
-    public String Space(int maxLineLength) {
+
+    public String Space(int length, char c) {
         StringBuilder space = new StringBuilder("");
-        for (int i = 0; i < maxLineLength + 1; i++) {
-            space.append("-");
+        for (int i = 0; i < length + 1; i++) {
+            space.append(c);
         }
         return space.toString();
     }
