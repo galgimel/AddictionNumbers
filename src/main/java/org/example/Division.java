@@ -26,10 +26,10 @@ public class Division {
         }
 
         String[] digits = String.valueOf(dividend).split("");
-        Integer reminderNumber;
-        Integer multiplyResult;
-        Integer divisorDigit = calculateDigit(divisor);
-        Integer mod;
+        int reminderNumber;
+        int multiplyResult;
+        int divisorDigit = calculateDigit(divisor);
+        int mod;
 
         for (int i = 0; i < digits.length; i++) {
             reminder.append(digits[i]);
@@ -39,7 +39,7 @@ public class Division {
                 mod = reminderNumber % divisor;
                 multiplyResult = reminderNumber / divisor * divisor;
 
-                String lastReminder = String.format("%" + (i + 2) + "s", "_" + reminderNumber.toString());
+                String lastReminder = String.format("%" + (i + 2) + "s", "_" + reminderNumber);
                 result.append(lastReminder).append("\n");
 
                 String multiply = String.format("%" + (i + 2) + "d", multiplyResult);
@@ -50,7 +50,7 @@ public class Division {
 
                 quotient.append(reminderNumber / divisor);
 
-                reminder.replace(0, reminder.length(), mod.toString());
+                reminder.replace(0, reminder.length(), String.valueOf(mod));
                 reminderNumber = Integer.parseInt(reminder.toString());
             } else {
                 if (i >= divisorDigit) {
@@ -59,7 +59,7 @@ public class Division {
             }
 
             if (i == digits.length - 1) {
-                result.append(String.format("%" + (i + 2) + "s", reminderNumber.toString())).append("\n");
+                result.append(String.format("%" + (i + 2) + "s", reminderNumber)).append("\n");
             }
         }
         modifyResultToView(dividend, divisor);
