@@ -7,8 +7,9 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         Counter count = new Counter();
         Formatter formatter = new Formatter();
+        DivisionFormatter divisionFormatter = new DivisionFormatter();
 
-        System.out.println("Введите действие: '+', '-' или '*'.");
+        System.out.println("Введите действие: '+', '-' или '*', '/'.");
         String action = scanner.nextLine();
 
         while (!action.equals("exit")) {
@@ -23,7 +24,15 @@ public class Main {
                     int a = Integer.parseInt(input);
                     int b = Integer.parseInt(input2);
                     int result = count.count(a, b, action);
-                    String answer = formatter.format(a, b, result, action);
+                    String answer = "";
+                    if (action.equals("/") && b != 0) {
+                        answer = divisionFormatter.DivisionFormat(a, b, result);  // пизда кривая
+                        divisionFormatter.CleanCache();
+                    } else if (action.equals("/")) {
+                        System.out.println("На ноль делить нельзя!");
+                    } else {
+                        answer = formatter.format(a, b, result, action);
+                    }
                     System.out.println("Ответ:");
                     System.out.println(answer);
                     System.out.println("Для окончания введите 'exit'.\nВведите действие: '+', '-' или '*'.");

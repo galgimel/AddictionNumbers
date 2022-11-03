@@ -11,8 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FormatterTest {
 
-    @ParameterizedTest
-    @MethodSource ("expectedAnswer")
+
     void format(int a, int b, int result, String action, String expected) {
         Formatter formatter = new Formatter();
 
