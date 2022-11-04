@@ -1,46 +1,53 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static java.lang.String.valueOf;
+import static org.example.FormatterUtils.maxLineLength;
 
 public class DivisionFormatter {
     DivisionCalculator d = new DivisionCalculator();
     Formatter f = new Formatter();
 
-    public ArrayList<String> firstLine = new ArrayList<>();
-    public ArrayList<String> secondLine = new ArrayList<>();
-    public ArrayList<String> thirdLine = new ArrayList<>();
+    public String divisionFormat(int a, int b, int result) {
 
-    public String DivisionFormat(int a, int b, int result) {
-        d.CalculatedLines(a, b, result);
+        List firstLine = new ArrayList<String>();
+        List secondLine = new ArrayList<String>();
+        List thirdLine = new ArrayList<String>();
+
+        d.calculatedLines(a, b, result);
         StringBuilder answer = new StringBuilder();
-        StringBuilder leftSpaceFirstLine = new StringBuilder();
-        StringBuilder leftSpaceSecondLine = new StringBuilder();
+        StringBuilder leftSpaceFirst = new StringBuilder();
+        StringBuilder leftSpaceSecond = new StringBuilder();
         String lastLeftSpace;
-        int maxLeftLength = f.MaxLineLength(a, 0, 0) + 1;
-        int maxRightLength = f.MaxLineLength(0, b, result);
+        int leftSpace = maxLineLength(a, 0, 0) + 1;
+        int rightSpace = maxLineLength(0, b, result);
+
+        String space2 = f.space(leftSpace - d.secondLineInt.get(1).length() - 2, ' ');
+        String space301 = f.space(d.secondLineInt.get(1).length() - 1, '-');
+        String space302 = f.space(leftSpace - 2 - d.secondLineInt.get(1).length(), ' ');
 
         firstLine.add("_" + a + "|" + b);
-        secondLine.add(" " + d.secondLineNumbers.get(1) + f.Space(maxLeftLength - d.secondLineNumbers.get(1).length() - 2, ' ') + "|" + f.Space(maxRightLength - 1, '-'));
-        thirdLine.add(" " + f.Space(d.secondLineNumbers.get(1).length() - 1, '-') + f.Space(maxLeftLength - 2 - d.secondLineNumbers.get(1).length(), ' ') + "|" + d.thirdLineNumbers.get(0));
+        secondLine.add(" " + d.secondLineInt.get(1) + space2 + "|" + f.space(rightSpace - 1, '-'));
+        thirdLine.add(" " + space301 + space302 + "|" + d.thirdLineInt.get(0));
 
-        for (int i = 2; i < d.secondLineNumbers.size(); i++) {
-            leftSpaceFirstLine.append(d.countLeftSpaces.get(i));
-            if (d.firstLineNumbers.get(i).length() == d.secondLineNumbers.get(i).length()) {
-                leftSpaceSecondLine.append(leftSpaceFirstLine + " ");
+        for (int i = 2; i < d.secondLineInt.size(); i++) {
+            leftSpaceFirst.append(d.leftSpaces.get(i));
+            if (d.firstLineInt.get(i).length() == d.secondLineInt.get(i).length()) {
+                leftSpaceSecond.append(leftSpaceFirst + " ");
             } else {
-                leftSpaceSecondLine.append(leftSpaceFirstLine + "  ");
+                leftSpaceSecond.append(leftSpaceFirst + "  ");
             }
-            firstLine.add(leftSpaceFirstLine + "_" + d.firstLineNumbers.get(i));
-            secondLine.add(leftSpaceSecondLine + d.secondLineNumbers.get(i));
-            thirdLine.add(leftSpaceSecondLine + f.Space(d.secondLineNumbers.get(i).length() - 1, '-'));
+            firstLine.add(leftSpaceFirst + "_" + d.firstLineInt.get(i));
+            secondLine.add(leftSpaceSecond + d.secondLineInt.get(i));
+            thirdLine.add(leftSpaceSecond + f.space(d.secondLineInt.get(i).length() - 1, '-'));
 
-            leftSpaceFirstLine.delete(0, leftSpaceFirstLine.length());
-            leftSpaceSecondLine.delete(0, leftSpaceSecondLine.length());
+            leftSpaceFirst.delete(0, leftSpaceFirst.length());
+            leftSpaceSecond.delete(0, leftSpaceSecond.length());
         }
-        lastLeftSpace = f.Space(maxLeftLength - valueOf(d.firstLineNumbers.get(d.firstLineNumbers.size() - 1)).length() - 1, ' ');
-        firstLine.add(lastLeftSpace + d.firstLineNumbers.get(d.firstLineNumbers.size() - 1));
+        lastLeftSpace = f.space(leftSpace - valueOf(d.firstLineInt.get(d.firstLineInt.size() - 1)).length() - 1, ' ');
+        firstLine.add(lastLeftSpace + d.firstLineInt.get(d.firstLineInt.size() - 1));
 
         for (int i = 0; i < secondLine.size(); i++) {
             answer.append(firstLine.get(i) + "\n");
@@ -48,13 +55,7 @@ public class DivisionFormatter {
             answer.append(thirdLine.get(i) + "\n");
         }
         answer.append(firstLine.get(firstLine.size() - 1) + "\n");
-        d.CleanCache();
+        d.cleanCache();
         return answer.toString();
-    }
-
-    public void CleanCache() {
-        firstLine.clear();
-        secondLine.clear();
-        thirdLine.clear();
     }
 }

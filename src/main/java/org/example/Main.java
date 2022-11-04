@@ -26,8 +26,7 @@ public class Main {
                     int result = count.count(a, b, action);
                     String answer = "";
                     if (action.equals("/") && b != 0) {
-                        answer = divisionFormatter.DivisionFormat(a, b, result);  // пизда кривая
-                        divisionFormatter.CleanCache();
+                        answer = divisionFormatter.divisionFormat(a, b, result);  // пизда кривая
                     } else if (action.equals("/")) {
                         System.out.println("На ноль делить нельзя!");
                     } else {

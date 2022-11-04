@@ -3,16 +3,17 @@ package org.example;
 import java.util.ArrayList;
 
 import static java.lang.String.valueOf;
+import static org.example.FormatterUtils.maxLineLength;
 
 public class DivisionCalculator {
     Formatter formatter = new Formatter();
 
-    public ArrayList<String> firstLineNumbers = new ArrayList<>();
-    public ArrayList<String> secondLineNumbers = new ArrayList<>();
-    public ArrayList<String> thirdLineNumbers = new ArrayList<>();
-    public ArrayList<String> countLeftSpaces = new ArrayList<>();
+    public ArrayList<String> firstLineInt = new ArrayList<>();
+    public ArrayList<String> secondLineInt = new ArrayList<>();
+    public ArrayList<String> thirdLineInt = new ArrayList<>();
+    public ArrayList<String> leftSpaces = new ArrayList<>();
 
-    public void CalculatedLines(int dividend, int divisor, int result) {
+    public void calculatedLines(int dividend, int divisor, int result) {
         int[] dividendArray = ints(dividend);
         int[] resultArray = ints(result);
         int countGetDownNumbers;
@@ -20,49 +21,49 @@ public class DivisionCalculator {
         String multiplied;
         StringBuilder residue = new StringBuilder();
 
-        firstLineNumbers.add(dividend + "");
-        firstLineNumbers.add(divisor + "");
-        secondLineNumbers.add(0, "");
-        thirdLineNumbers.add(result + "");
-        countLeftSpaces.add("");
-        countLeftSpaces.add("");
+        firstLineInt.add(dividend + "");
+        firstLineInt.add(divisor + "");
+        secondLineInt.add(0, "");
+        thirdLineInt.add(result + "");
+        leftSpaces.add("");
+        leftSpaces.add("");
 
         for (int i = 0; i < dividendArray.length; i++) {
-                divisorSetCount++;
-                if (divisorSetCount < resultArray.length) {
-                    multiplied = valueOf(divisor * resultArray[divisorSetCount]);
-                    if (i == 0) {
-                        getDividendValue(residue, dividendArray, Integer.parseInt(multiplied));
-                        i = residue.length() - 1;
-                    }
-                    trim(residue);
-                    residue.append(Integer.parseInt(residue.toString()) - Integer.parseInt(multiplied));
-                    residue.delete(0, multiplied.length());
-                    if (i <= dividendArray.length - 2) {
-                        residue.append(dividendArray[i + 1]);
-                    }
-                    trim(residue);
-                    countGetDownNumbers = dividendArray.length - residue.toString().length() - (dividendArray.length - i - 1);
-
-                    firstLineNumbers.add(residue.toString());
-                    secondLineNumbers.add(multiplied);
-                    countLeftSpaces.add(formatter.Space(countGetDownNumbers, ' '));
-
-                } else if (i == resultArray.length) {
-                    residue.append("0");
+            divisorSetCount++;
+            if (divisorSetCount < resultArray.length) {
+                multiplied = valueOf(divisor * resultArray[divisorSetCount]);
+                if (i == 0) {
+                    getDividendValue(residue, dividendArray, Integer.parseInt(multiplied));
+                    i = residue.length() - 1;
                 }
+                trim(residue);
+                residue.append(Integer.parseInt(residue.toString()) - Integer.parseInt(multiplied));
+                residue.delete(0, multiplied.length());
+                if (i <= dividendArray.length - 2) {
+                    residue.append(dividendArray[i + 1]);
+                }
+                trim(residue);
+                countGetDownNumbers = dividendArray.length - residue.toString().length() - (dividendArray.length - i - 1);
+
+                firstLineInt.add(residue.toString());
+                secondLineInt.add(multiplied);
+                leftSpaces.add(formatter.space(countGetDownNumbers, ' '));
+
+            } else if (i == resultArray.length) {
+                residue.append("0");
+            }
         }
-        if (firstLineNumbers.get(firstLineNumbers.size() - 1).equals(" ")) {
-            firstLineNumbers.add(firstLineNumbers.size() - 1, "0");
-            firstLineNumbers.remove(firstLineNumbers.size() - 1);
+        if (firstLineInt.get(firstLineInt.size() - 1).equals(" ")) {
+            firstLineInt.add(firstLineInt.size() - 1, "0");
+            firstLineInt.remove(firstLineInt.size() - 1);
         }
     }
     /**
-     *  Получаем первое значение residue (из первой строки, индекс 0)
+     * Получаем первое значение residue (из первой строки, индекс 0)
      *
-     * @param string StringBuilder, в который мы будем вкладывать значение
+     * @param string        StringBuilder, в который мы будем вкладывать значение
      * @param dividendArray откуда берем значение
-     * @param toCompare для сравнения значения - если меньшеБ то спускаем еще одно число
+     * @param toCompare     для сравнения значения - если меньшеБ то спускаем еще одно число
      * @return итоговый
      */
     private StringBuilder getDividendValue(StringBuilder string, int[] dividendArray, int toCompare) {
@@ -76,22 +77,21 @@ public class DivisionCalculator {
     }
     private int[] ints(int base) {
         char[] chars = valueOf(base).toCharArray();
-        int[] numbers = new int[formatter.MaxLineLength(0, 0, base)];
+        int[] numbers = new int[maxLineLength(0, 0, base)];
         for (int i = 0; i < numbers.length; i++) {
             numbers[i] = Integer.parseInt(valueOf(chars[i]));
         }
         return numbers;
     }
-    public void trim(StringBuilder toTrim){
+    public void trim(StringBuilder toTrim) {
         int trimInt = Integer.parseInt(valueOf(toTrim.toString().trim()));
         toTrim.delete(0, toTrim.length());
         toTrim.append(trimInt);
     }
-    public void CleanCache() {
-        firstLineNumbers.clear();
-        secondLineNumbers.clear();
-        thirdLineNumbers.clear();
-        countLeftSpaces.clear();
+    public void cleanCache() {
+        firstLineInt.clear();
+        secondLineInt.clear();
+        thirdLineInt.clear();
+        leftSpaces.clear();
     }
 }
-

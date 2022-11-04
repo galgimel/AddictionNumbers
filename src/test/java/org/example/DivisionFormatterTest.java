@@ -1,6 +1,5 @@
 package org.example;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -16,7 +15,7 @@ class DivisionFormatterTest {
     void divisionFormat(int a, int b, int result, String expected) {
         DivisionFormatter divisionFormatter = new DivisionFormatter();
 
-        String actual = divisionFormatter.DivisionFormat(a, b, result);
+        String actual = divisionFormatter.divisionFormat(a, b, result);
         assertEquals(expected, actual);
     }
     private static Stream<Arguments> expectedAnswer() {
