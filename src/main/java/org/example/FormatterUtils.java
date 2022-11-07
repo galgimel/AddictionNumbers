@@ -1,7 +1,6 @@
 package org.example;
 
 public class FormatterUtils {
-
     public static int maxLineLength(int a, int b, int result) {
         int[] ints = new int[]{a, b, result};
         int maxLineLength = 0;

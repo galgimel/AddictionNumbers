@@ -12,9 +12,9 @@ public class DivisionFormatter {
 
     public String divisionFormat(int a, int b, int result) {
 
-        List firstLine = new ArrayList<String>();
-        List secondLine = new ArrayList<String>();
-        List thirdLine = new ArrayList<String>();
+        List<String> firstLine = new ArrayList<>();
+        List<String> secondLine = new ArrayList<>();
+        List<String> thirdLine = new ArrayList<>();
 
         d.calculatedLines(a, b, result);
         StringBuilder answer = new StringBuilder();

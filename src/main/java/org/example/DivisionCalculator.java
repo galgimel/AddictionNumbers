@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static java.lang.String.valueOf;
 import static org.example.FormatterUtils.maxLineLength;
@@ -8,10 +9,10 @@ import static org.example.FormatterUtils.maxLineLength;
 public class DivisionCalculator {
     Formatter formatter = new Formatter();
 
-    public ArrayList<String> firstLineInt = new ArrayList<>();
-    public ArrayList<String> secondLineInt = new ArrayList<>();
-    public ArrayList<String> thirdLineInt = new ArrayList<>();
-    public ArrayList<String> leftSpaces = new ArrayList<>();
+    public List<String> firstLineInt = new ArrayList<>();
+    public List<String> secondLineInt = new ArrayList<>();
+    public List<String> thirdLineInt = new ArrayList<>();
+    public List<String> leftSpaces = new ArrayList<>();
 
     public void calculatedLines(int dividend, int divisor, int result) {
         int[] dividendArray = ints(dividend);
@@ -33,7 +34,12 @@ public class DivisionCalculator {
             if (divisorSetCount < resultArray.length) {
                 multiplied = valueOf(divisor * resultArray[divisorSetCount]);
                 if (i == 0) {
-                    getDividendValue(residue, dividendArray, Integer.parseInt(multiplied));
+                    residue.append(dividendArray[0]);
+                    for (int u = 1; u < dividendArray.length; u++) {
+                        if (Integer.parseInt(residue.toString()) < Integer.parseInt(multiplied)) {
+                            residue.append(dividendArray[u]);
+                        }
+                    }
                     i = residue.length() - 1;
                 }
                 trim(residue);
@@ -58,23 +64,7 @@ public class DivisionCalculator {
             firstLineInt.remove(firstLineInt.size() - 1);
         }
     }
-    /**
-     * Получаем первое значение residue (из первой строки, индекс 0)
-     *
-     * @param string        StringBuilder, в который мы будем вкладывать значение
-     * @param dividendArray откуда берем значение
-     * @param toCompare     для сравнения значения - если меньшеБ то спускаем еще одно число
-     * @return итоговый
-     */
-    private StringBuilder getDividendValue(StringBuilder string, int[] dividendArray, int toCompare) {
-        string.append(dividendArray[0]);
-        for (int i = 1; i < dividendArray.length; i++) {
-            if (Integer.parseInt(string.toString()) < toCompare) {
-                string.append(dividendArray[i]);
-            }
-        }
-        return string;
-    }
+
     private int[] ints(int base) {
         char[] chars = valueOf(base).toCharArray();
         int[] numbers = new int[maxLineLength(0, 0, base)];
@@ -83,11 +73,13 @@ public class DivisionCalculator {
         }
         return numbers;
     }
+
     public void trim(StringBuilder toTrim) {
         int trimInt = Integer.parseInt(valueOf(toTrim.toString().trim()));
         toTrim.delete(0, toTrim.length());
         toTrim.append(trimInt);
     }
+
     public void cleanCache() {
         firstLineInt.clear();
         secondLineInt.clear();
