@@ -1,9 +1,14 @@
-package org.example;
+package org.example.formatter;
 
 import static org.example.FormatterUtils.maxLineLength;
+import static org.example.FormatterUtils.space;
 
-public class Formatter {
-    public String format(int a, int b, int result, String action) {
+public class SimpleOperationFormatter implements Formatter {
+    public String formatByAction(int a, int b, int result, String action) {
+        return format(a, b, result).replace("#", action);
+    }
+
+    public String format(int a, int b, int result) {
         int[] ints = new int[]{a, b, result};
         String[] full = new String[3];
         int maxLineLength = maxLineLength(a, b, result);
@@ -23,15 +28,7 @@ public class Formatter {
             }
         }
         String space = space(maxLineLength, '-');
-        return " " + full[0] + "\n" + action + full[1] + "\n" + space + "\n" + " " + full[2] + "\n";
+        return " " + full[0] + "\n" + "#" + full[1] + "\n" + space + "\n" + " " + full[2] + "\n";
     }
-
-    public String space(int length, char c) {
-        StringBuilder space = new StringBuilder();
-        for (int i = 0; i < length + 1; i++) {
-            space.append(c);
-        }
-        return space.toString();
-    }
-
 }
+

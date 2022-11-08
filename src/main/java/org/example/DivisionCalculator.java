@@ -1,20 +1,11 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static java.lang.String.valueOf;
 import static org.example.FormatterUtils.maxLineLength;
 
 public class DivisionCalculator {
-    Formatter formatter = new Formatter();
 
-    public List<String> firstLineInt = new ArrayList<>();
-    public List<String> secondLineInt = new ArrayList<>();
-    public List<String> thirdLineInt = new ArrayList<>();
-    public List<String> leftSpaces = new ArrayList<>();
-
-    public void calculatedLines(int dividend, int divisor, int result) {
+    public DivisionResultDTO calculateLines(int dividend, int divisor, int result) {
         int[] dividendArray = ints(dividend);
         int[] resultArray = ints(result);
         int countGetDownNumbers;
@@ -22,12 +13,14 @@ public class DivisionCalculator {
         String multiplied;
         StringBuilder residue = new StringBuilder();
 
-        firstLineInt.add(dividend + "");
-        firstLineInt.add(divisor + "");
-        secondLineInt.add(0, "");
-        thirdLineInt.add(result + "");
-        leftSpaces.add("");
-        leftSpaces.add("");
+        DivisionResultDTO dto = new DivisionResultDTO();
+
+        dto.getFirstLineInt().add(dividend + "");
+        dto.getFirstLineInt().add(divisor + "");
+        dto.getSecondLineInt().add(0, "");
+        dto.getThirdLineInt().add(result + "");
+        dto.getLeftSpaces().add("");
+        dto.getLeftSpaces().add("");
 
         for (int i = 0; i < dividendArray.length; i++) {
             divisorSetCount++;
@@ -49,20 +42,24 @@ public class DivisionCalculator {
                     residue.append(dividendArray[i + 1]);
                 }
                 trim(residue);
-                countGetDownNumbers = dividendArray.length - residue.toString().length() - (dividendArray.length - i - 1);
+                countGetDownNumbers =
+                    dividendArray.length -
+                        residue.toString().length() -
+                        (dividendArray.length - i - 1);
 
-                firstLineInt.add(residue.toString());
-                secondLineInt.add(multiplied);
-                leftSpaces.add(formatter.space(countGetDownNumbers, ' '));
+                dto.getFirstLineInt().add(residue.toString());
+                dto.getSecondLineInt().add(multiplied);
+                dto.getLeftSpaces().add(FormatterUtils.space(countGetDownNumbers, ' '));
 
             } else if (i == resultArray.length) {
                 residue.append("0");
             }
         }
-        if (firstLineInt.get(firstLineInt.size() - 1).equals(" ")) {
-            firstLineInt.add(firstLineInt.size() - 1, "0");
-            firstLineInt.remove(firstLineInt.size() - 1);
+        if (dto.getFirstLineInt().get(dto.getFirstLineInt().size() - 1).equals(" ")) {
+            dto.getFirstLineInt().add(dto.getFirstLineInt().size() - 1, "0");
+            dto.getFirstLineInt().remove(dto.getFirstLineInt().size() - 1);
         }
+        return dto;
     }
 
     private int[] ints(int base) {
@@ -75,15 +72,8 @@ public class DivisionCalculator {
     }
 
     public void trim(StringBuilder toTrim) {
-        int trimInt = Integer.parseInt(valueOf(toTrim.toString().trim()));
+        int trimInt = Integer.parseInt(toTrim.toString().trim());
         toTrim.delete(0, toTrim.length());
         toTrim.append(trimInt);
-    }
-
-    public void cleanCache() {
-        firstLineInt.clear();
-        secondLineInt.clear();
-        thirdLineInt.clear();
-        leftSpaces.clear();
     }
 }
