@@ -1,6 +1,7 @@
 package org.example;
 
 import static java.lang.String.valueOf;
+import static org.example.Constants.*;
 import static org.example.FormatterUtils.maxLineLength;
 
 public class DivisionCalculator {
@@ -15,12 +16,12 @@ public class DivisionCalculator {
 
         DivisionResultDTO dto = new DivisionResultDTO();
 
-        dto.getFirstLineInt().add(dividend + "");
-        dto.getFirstLineInt().add(divisor + "");
-        dto.getSecondLineInt().add(0, "");
-        dto.getThirdLineInt().add(result + "");
-        dto.getLeftSpaces().add("");
-        dto.getLeftSpaces().add("");
+        dto.getFirstLineInt().add(dividend + EMPTY_SPACE);
+        dto.getFirstLineInt().add(divisor + EMPTY_SPACE);
+        dto.getSecondLineInt().add(0, EMPTY_SPACE);
+        dto.getThirdLineInt().add(result + EMPTY_SPACE);
+        dto.getLeftSpaces().add(EMPTY_SPACE);
+        dto.getLeftSpaces().add(EMPTY_SPACE);
 
         for (int i = 0; i < dividendArray.length; i++) {
             divisorSetCount++;
@@ -49,14 +50,14 @@ public class DivisionCalculator {
 
                 dto.getFirstLineInt().add(residue.toString());
                 dto.getSecondLineInt().add(multiplied);
-                dto.getLeftSpaces().add(FormatterUtils.space(countGetDownNumbers, ' '));
+                dto.getLeftSpaces().add(FormatterUtils.space(countGetDownNumbers, CHAR_SPACE_SPLIT));
 
             } else if (i == resultArray.length) {
-                residue.append("0");
+                residue.append(ZERO);
             }
         }
-        if (dto.getFirstLineInt().get(dto.getFirstLineInt().size() - 1).equals(" ")) {
-            dto.getFirstLineInt().add(dto.getFirstLineInt().size() - 1, "0");
+        if (dto.getFirstLineInt().get(dto.getFirstLineInt().size() - 1).equals(SPACE_SPLIT)) {
+            dto.getFirstLineInt().add(dto.getFirstLineInt().size() - 1, ZERO);
             dto.getFirstLineInt().remove(dto.getFirstLineInt().size() - 1);
         }
         return dto;

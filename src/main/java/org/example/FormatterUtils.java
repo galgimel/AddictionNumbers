@@ -4,7 +4,7 @@ public class FormatterUtils {
 
     public static String space(int length, char c) {
         StringBuilder space = new StringBuilder();
-        space.append(String.valueOf(c).repeat(Math.max(0, length +1)));
+        space.append(String.valueOf(c).repeat(Math.max(0, length + 1)));
         return space.toString();
     }
 

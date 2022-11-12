@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.formatter.DivisionFormatter;
+import org.example.formatter.Formatter;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -14,7 +15,8 @@ class DivisionFormatterTest {
     @ParameterizedTest
     @MethodSource("expectedAnswer")
     void divisionFormat(int a, int b, int result, String expected) {
-        DivisionFormatter divisionFormatter = new DivisionFormatter();
+        DivisionCalculator divisionCalculator = new DivisionCalculator();
+        Formatter divisionFormatter = new DivisionFormatter(divisionCalculator);
 
         String actual = divisionFormatter.format(a, b, result);
         assertEquals(expected, actual);
