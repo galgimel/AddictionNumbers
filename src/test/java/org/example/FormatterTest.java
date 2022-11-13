@@ -1,6 +1,6 @@
 package org.example;
 
-import org.junit.jupiter.api.Test;
+import org.example.formatter.SimpleOperationFormatter;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -14,9 +14,9 @@ class FormatterTest {
     @ParameterizedTest
     @MethodSource ("expectedAnswer")
     void format(int a, int b, int result, String action, String expected) {
-        Formatter formatter = new Formatter();
+        SimpleOperationFormatter formatter = new SimpleOperationFormatter();
 
-        String actual = formatter.format(a, b, result, action);
+        String actual = formatter.formatByAction(a, b, result, action);
         assertEquals(expected, actual);
     }
     private static Stream<Arguments> expectedAnswer() {
